@@ -1,4 +1,4 @@
-package com.pucmobile;
+package com.puconline.apps;
 
 import com.facebook.react.ReactActivity;
 

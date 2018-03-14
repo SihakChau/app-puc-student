@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class HomeContainer extends Component {
+import HomeComponent from '../../screens/TabStack/Home';
+
+export class HomeContainer extends Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>HomeContainer</Text>
-      </View>
-    );
+    return <HomeComponent {...this.props} />;
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class LoginContainer extends Component {
+import LoginComponent from '../../screens/AccountStack/Login';
+
+export class LoginContainer extends Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>LoginContainer</Text>
-      </View>
-    );
+    return <LoginComponent {...this.props} />;
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
-import {
-  createReduxBoundAddListener,
-  createReactNavigationReduxMiddleware
-} from 'react-navigation-redux-helpers';
+import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
 
-import LoginScreen from '../containers/AccountStack/login';
-import HomeScreen from '../containers/TabStack/home';
+import LoginScreen from '../containers/AccountStack/Login';
+
+import HomeScreen from '../containers/TabStack/Home';
 
 const AccountStack = StackNavigator(
   {
@@ -17,18 +15,18 @@ const AccountStack = StackNavigator(
   {
     initialRouteName: 'LoginScreen',
     cardStyle: {
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
     },
     mode: 'modal',
     navigationOptions: {
-      gesturesEnabled: false
-    }
+      gesturesEnabled: false,
+    },
   }
 );
 
 const ProgramStack = StackNavigator({
   HomeScreen: { screen: HomeScreen, navigationOptions: { header: null } },
-})
+});
 
 const TabStack = TabNavigator(
   {
@@ -57,7 +55,7 @@ const TabStack = TabNavigator(
       },
     },
   }
-)
+);
 
 export const AppNavigator = StackNavigator(
   {
@@ -67,19 +65,16 @@ export const AppNavigator = StackNavigator(
   {
     initialRouteName: 'TabStack',
     cardStyle: {
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
     },
     mode: 'modal',
     navigationOptions: {
-      gesturesEnabled: false
-    }
+      gesturesEnabled: false,
+    },
   }
 );
 
-export const navMiddleware = createReactNavigationReduxMiddleware(
-  'root',
-  state => state.nav
-);
+export const navMiddleware = createReactNavigationReduxMiddleware('root', (state) => state.nav);
 
 const addListener = createReduxBoundAddListener('root');
 
@@ -88,18 +83,18 @@ const AppWithNavigationState = ({ dispatch, nav }) => (
     navigation={addNavigationHelpers({
       dispatch: dispatch,
       state: nav,
-      addListener
+      addListener,
     })}
   />
 );
 
 AppWithNavigationState.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  nav: PropTypes.object.isRequired
+  nav: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  nav: state.nav
+const mapStateToProps = (state) => ({
+  nav: state.nav,
 });
 
 export default connect(mapStateToProps)(AppWithNavigationState);
