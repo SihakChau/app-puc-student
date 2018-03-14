@@ -7,6 +7,7 @@ import firebase from 'react-native-firebase';
 
 import './ReactotronConfig';
 import AppWithNavigationState from './app/config/routes';
+import LoadingComponent from './app/components/Loading';
 
 class PucMobile extends Component {
   constructor(props) {
