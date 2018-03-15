@@ -5,6 +5,8 @@ import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-naviga
 import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
 
 import LoginScreen from '../containers/AccountStack/Login';
+import JoinUsScreen from '../containers/AccountStack/JoinUs';
+import SignUpScreen from '../containers/AccountStack/SignUp';
 
 import TestRegistrationScreen from '../containers/ProgramStack/TestRegistration';
 import PaymentScreen from '../containers/ProgramStack/Payment';
@@ -16,7 +18,9 @@ import NotificationsScreen from '../containers/TabStack/Notifications';
 import SettingsScreen from '../containers/TabStack/Settings';
 
 const AccountStack = StackNavigator({
+  JoinUsScreen: { screen: JoinUsScreen, navigationOptions: { header: null } },
   LoginScreen: { screen: LoginScreen, navigationOptions: { header: null } },
+  SignUpScreen: { screen: SignUpScreen, navigationOptions: { header: null } },
 });
 
 const ProgramStack = StackNavigator({
