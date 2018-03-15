@@ -52,7 +52,7 @@ export function fetchTest(user) {
     const bookingRef = firebase
       .firestore()
       .collection('testing')
-      .where('uid', '==', user.uid)
+      .where('uid', '==', JSON.stringify(user.uid))
       .orderBy('admissiondate', 'desc')
       .limit(1)
       .onSnapshot((snapshots) => {

@@ -49,7 +49,7 @@ export function loginWithEmail(email, password) {
       .auth()
       .signInAndRetrieveDataWithEmailAndPassword(email, password)
       .then((response) => {
-        dispatch(requestLoginSuccess(response._user));
+        dispatch(requestLoginSuccess(response.user));
       })
       .catch((error) => {
         alert(JSON.stringify(error.code));
