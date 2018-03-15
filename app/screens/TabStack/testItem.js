@@ -1,140 +1,57 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
-  Image,
-  PixelRatio,
-  StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
-  Alert,
+  Text,
   FlatList,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+  SafeAreaView,
+  Image,
+  Dimensions,
   findNodeHandle,
+  StyleSheet,
   Platform,
 } from 'react-native';
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { BlurView } from 'react-native-blur';
+import moment from 'moment';
 
 import { COLORS, ICONS } from '../../modules';
-import TestItem from './testItem';
 
-class ProfileComponent extends Component {
+class TestItem extends Component {
   constructor(props) {
     super(props);
     this.state = { viewRef: null };
-  }
-
-  componentDidMount() {
-    const { user } = this.props;
-    this.props.actions.fetchTest(user);
   }
 
   imageLoaded() {
     this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
   }
 
-  _flatHeader = () => {
-    return <View style={{ height: 20, width: '100%' }} />;
-  };
-  _flatSeparator = () => {
-    return <View style={{ height: 8, width: '100%', backgroundColor: colors.backgroundPrimary }} />;
-  };
-  _flatFooter = () => {
-    return (
-      <View
-        style={{
-          height: 50,
-        }}
-      />
-    );
-  };
-
   render() {
-    const { data } = this.props;
+    const { latinname, testtype, admissiondate, mobilephone, serialid } = this.props;
     return (
-      <ParallaxScrollView
-        headerBackgroundColor="#DEE4F0"
-        contentBackgroundColor={colors.backgroundPrimary}
-        backgroundColor={colors.backgroundPrimary}
-        stickyHeaderHeight={STICKY_HEADER_HEIGHT}
-        parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
-        backgroundSpeed={10}
-        renderBackground={() => (
-          <View key="background">
-            <Image
-              ref={(img) => {
-                this.backgroundImage = img;
-              }}
-              onLoadEnd={this.imageLoaded.bind(this)}
-              source={ICONS.JOIN_US_BG}
-              style={{ width: window.width, height: PARALLAX_HEADER_HEIGHT }}
-            />
-            <View
-              style={{
-                position: 'absolute',
-                top: 0,
-                width: window.width,
-                backgroundColor: 'rgba(0,0,0,.4)',
-                height: PARALLAX_HEADER_HEIGHT,
-              }}
-            />
-          </View>
-        )}
-        renderForeground={() => (
-          <View key="parallax-header" style={styles.parallaxHeader}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>Sitha</Text>
-            </View>
-            <Text style={styles.sectionSpeakerText}>admin@gmail.com</Text>
-            <Text style={styles.sectionTitleText}>012 28 55 99</Text>
-          </View>
-        )}
-        renderStickyHeader={() => (
-          <View key="sticky-header" style={styles.stickySection}>
-            <Text style={styles.stickySectionText}>My Account</Text>
-          </View>
-        )}>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.key}
-          ListFooterComponent={this._flatFooter}
-          ListHeaderComponent={this._flatHeader}
-          ItemSeparatorComponent={this._flatSeparator}
-          keyboardShouldPersistTaps="always"
-          renderItem={({ item }) => <TestItem {...this.props} {...item} id={item.key} />}
+      <TouchableOpacity style={styles.card} activeOpacity={1}>
+        <Image
+          style={styles.bgImage}
+          ref={(img) => {
+            this.backgroundImage = img;
+          }}
+          onLoadEnd={this.imageLoaded.bind(this)}
+          source={ICONS.SHOT}
         />
-
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Account</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Language</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>About</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Policies</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Contact Us</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Developer</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-      </ParallaxScrollView>
+        <Text style={[styles.h4]}>Serial: {serialid}</Text>
+        <Text style={[styles.h4, styles.pt0]}>{testtype}</Text>
+        <View style={styles.f1} />
+        <View style={styles.footer}>
+          <BlurView style={styles.absolute} viewRef={this.state.viewRef} blurType="light" blurAmount={30} />
+          <Text style={styles.h6}>{latinname}</Text>
+          <Text style={styles.subtitle}>
+            Admission date {moment(admissiondate).format('MMMM, DD, YYYY')}, Payment 10,000 Riel. Your contact number{' '}
+            {mobilephone}
+          </Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -408,4 +325,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileComponent;
+export default TestItem;
