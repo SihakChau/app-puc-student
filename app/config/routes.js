@@ -6,6 +6,9 @@ import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } fro
 
 import LoginScreen from '../containers/AccountStack/Login';
 
+import TestRegistrationScreen from '../containers/ProgramStack/TestRegistration';
+import PaymentScreen from '../containers/ProgramStack/Payment';
+
 import HomeScreen from '../containers/TabStack/Home';
 import ProgramsScreen from '../containers/TabStack/Programs';
 import ProfileScreen from '../containers/TabStack/Profile';
@@ -18,6 +21,8 @@ const AccountStack = StackNavigator({
 
 const ProgramStack = StackNavigator({
   ProgramsScreen: { screen: ProgramsScreen, navigationOptions: { header: null } },
+  PaymentScreen: { screen: PaymentScreen, navigationOptions: { header: null } },
+  TestRegistrationScreen: { screen: TestRegistrationScreen, navigationOptions: { header: null } },
 });
 
 const HomeStack = StackNavigator({
