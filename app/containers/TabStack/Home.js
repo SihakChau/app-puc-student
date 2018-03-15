@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeComponent from '../../screens/TabStack/Home';
 
-export class HomeContainer extends Component {
+class HomeContainer extends Component {
   render() {
     return <HomeComponent {...this.props} />;
   }

@@ -3,7 +3,7 @@ import { Button, Text, View, TouchableOpacity, SafeAreaView, TextInput, StyleShe
 
 import { COLORS, ICONS } from '../../modules';
 
-export class HomeComponent extends Component {
+class HomeComponent extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

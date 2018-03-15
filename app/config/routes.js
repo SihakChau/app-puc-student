@@ -7,34 +7,45 @@ import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } fro
 import LoginScreen from '../containers/AccountStack/Login';
 
 import HomeScreen from '../containers/TabStack/Home';
+import ProgramsScreen from '../containers/TabStack/Programs';
+import ProfileScreen from '../containers/TabStack/Profile';
+import NotificationsScreen from '../containers/TabStack/Notifications';
+import SettingsScreen from '../containers/TabStack/Settings';
 
-const AccountStack = StackNavigator(
-  {
-    LoginScreen: { screen: LoginScreen, navigationOptions: { header: null } },
-  },
-  {
-    initialRouteName: 'LoginScreen',
-    cardStyle: {
-      backgroundColor: '#fff',
-    },
-    mode: 'modal',
-    navigationOptions: {
-      gesturesEnabled: false,
-    },
-  }
-);
+const AccountStack = StackNavigator({
+  LoginScreen: { screen: LoginScreen, navigationOptions: { header: null } },
+});
 
 const ProgramStack = StackNavigator({
+  ProgramsScreen: { screen: ProgramsScreen, navigationOptions: { header: null } },
+});
+
+const HomeStack = StackNavigator({
   HomeScreen: { screen: HomeScreen, navigationOptions: { header: null } },
+});
+
+const ProfileStack = StackNavigator({
+  ProfileScreen: { screen: ProfileScreen, navigationOptions: { header: null } },
+});
+
+const NotificationsStack = StackNavigator({
+  NotificationsScreen: { screen: NotificationsScreen, navigationOptions: { header: null } },
+});
+
+const SettingsStack = StackNavigator({
+  SettingsScreen: { screen: SettingsScreen, navigationOptions: { header: null } },
 });
 
 const TabStack = TabNavigator(
   {
-    HomeScreen: { screen: HomeScreen },
-    ProgramsScreen: { screen: ProgramStack },
+    HomeTab: { screen: HomeStack },
+    ProgramTab: { screen: ProgramStack },
+    ProfileTab: { screen: ProfileStack },
+    NotificationsTab: { screen: NotificationsStack },
+    SettingsTab: { screen: SettingsStack },
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'HomeTab',
     tabBarPosition: 'bottom',
     animationEnabled: false,
     lazy: true,
@@ -57,22 +68,10 @@ const TabStack = TabNavigator(
   }
 );
 
-export const AppNavigator = StackNavigator(
-  {
-    TabStack: { screen: TabStack, navigationOptions: { header: null } },
-    AccountStack: { screen: AccountStack, navigationOptions: { header: null } },
-  },
-  {
-    initialRouteName: 'TabStack',
-    cardStyle: {
-      backgroundColor: '#fff',
-    },
-    mode: 'modal',
-    navigationOptions: {
-      gesturesEnabled: false,
-    },
-  }
-);
+export const AppNavigator = StackNavigator({
+  TabStack: { screen: TabStack, navigationOptions: { header: null } },
+  AccountStack: { screen: AccountStack, navigationOptions: { header: null } },
+});
 
 export const navMiddleware = createReactNavigationReduxMiddleware('root', (state) => state.nav);
 

@@ -68,7 +68,7 @@ export class LoginComponent extends Component {
             isDisabled={isLoading}
             activeOpacity={0.7}>
             <View>
-              <Text style={styles.loginButtonTitle}>Sign in</Text>
+              <Text style={styles.loginButtonTitle}>SIGN IN</Text>
             </View>
           </Button>
           <TouchableOpacity style={styles.link} onPress={() => this.props.navigation.goBack(null)}>
