@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
+import { NavigationActions, addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
 import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
 
 import LoginScreen from '../containers/AccountStack/Login';
@@ -83,23 +83,31 @@ export const AppNavigator = StackNavigator({
 });
 
 export const navMiddleware = createReactNavigationReduxMiddleware('root', (state) => state.nav);
-
 const addListener = createReduxBoundAddListener('root');
 
-const AppWithNavigationState = ({ dispatch, nav }) => (
-  <AppNavigator
-    navigation={addNavigationHelpers({
-      dispatch: dispatch,
-      state: nav,
-      addListener,
-    })}
-  />
-);
+class AppWithNavigationState extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    nav: PropTypes.object.isRequired,
+  };
 
-AppWithNavigationState.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  nav: PropTypes.object.isRequired,
-};
+  componentDidMount() {
+    this.props.dispatch(NavigationActions.init());
+  }
+
+  render() {
+    const { dispatch, nav } = this.props;
+    return (
+      <AppNavigator
+        navigation={addNavigationHelpers({
+          dispatch,
+          state: nav,
+          addListener,
+        })}
+      />
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   nav: state.nav,
