@@ -14,7 +14,7 @@ class PucMobile extends Component {
     super(props);
     this.state = {
       loaded: false,
-      initialComponent: <Text>PucMobile</Text>,
+      initialComponent: <LoadingComponent />,
     };
   }
 
