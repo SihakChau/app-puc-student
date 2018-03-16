@@ -50,7 +50,7 @@ class ProfileComponent extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, user } = this.props;
     return (
       <ParallaxScrollView
         headerBackgroundColor="#DEE4F0"
@@ -83,10 +83,10 @@ class ProfileComponent extends Component {
         renderForeground={() => (
           <View key="parallax-header" style={styles.parallaxHeader}>
             <View style={styles.avatar}>
-              <Text style={styles.avatarText}>Sitha</Text>
+              <Text style={styles.avatarText}>{user.displayName}</Text>
             </View>
-            <Text style={styles.sectionSpeakerText}>admin@gmail.com</Text>
-            <Text style={styles.sectionTitleText}>012 28 55 99</Text>
+            <Text style={styles.sectionSpeakerText}>{user.email}</Text>
+            <Text style={styles.sectionTitleText}>{user.phoneNumber}</Text>
           </View>
         )}
         renderStickyHeader={() => (

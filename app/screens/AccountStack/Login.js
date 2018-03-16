@@ -104,6 +104,7 @@ export class LoginComponent extends Component {
               alignItems: 'center',
               flexDirection: 'row',
               paddingTop: 10,
+              paddingBottom: 15,
             }}>
             <Text style={{ color: COLORS.LIGHT_GREY, fontSize: 11 }}>Forgot Your Password? </Text>
           </View>

@@ -8,6 +8,7 @@ import firebase from 'react-native-firebase';
 import './ReactotronConfig';
 import AppWithNavigationState from './app/config/routes';
 import LoadingComponent from './app/components/Loading';
+import { requestLoginSuccess } from './app/actions/authAction';
 
 class PucMobile extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class PucMobile extends Component {
         this.setState({ loaded: true, initialComponent: <AppWithNavigationState /> });
       }, 1000);
       if (user) {
+        this.props.actions.requestLoginSuccess(user);
         this.props.navigateTo('TabStack');
       } else {
         this.props.navigateTo('AccountStack');
@@ -45,6 +47,7 @@ function mapDispatchToProps(dispatch) {
     });
 
   return {
+    actions: bindActionCreators({ requestLoginSuccess }, dispatch),
     navigateTo: (routeName) => dispatch(resetAction(routeName)),
   };
 }

@@ -109,7 +109,7 @@ export function loginWithEmail(email, password) {
       .auth()
       .signInAndRetrieveDataWithEmailAndPassword(email, password)
       .then((response) => {
-        dispatch(requestLoginSuccess(response.user));
+        dispatch(requestLoginSuccess(response));
       })
       .catch((error) => {
         alert(JSON.stringify(error.code));
@@ -135,7 +135,6 @@ export function logout(navigation) {
         navigation.dispatch(navigateToLogin);
       })
       .catch((error) => {
-        alert(JSON.stringify(error.code));
         dispatch(requestLogoutError(error.code));
       });
   };
@@ -178,10 +177,10 @@ export function sendPasswordResetEmail(email) {
   const actionCodeSettings = {
     url: `https://puconline-c176c.firebaseio.com?email=${email}`,
     iOS: {
-      bundleId: 'com.puconline.app',
+      bundleId: 'com.puconline.apps',
     },
     android: {
-      packageName: 'com.puconline.app',
+      packageName: 'com.puconline.apps',
       installApp: true,
       minimumVersion: '12',
     },
