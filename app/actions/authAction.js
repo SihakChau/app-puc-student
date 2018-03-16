@@ -62,6 +62,46 @@ function requestSignUpError(message) {
   };
 }
 
+function requestResetPassword() {
+  return {
+    type: types.REQUEST_RESET_PASSWORD,
+  };
+}
+
+export function requestResetPasswordSuccess(data) {
+  return {
+    type: types.RESET_PASSWORD_SUCCESS,
+    data,
+  };
+}
+
+function requestResetPasswordError(message) {
+  return {
+    type: types.RESET_PASSWORD_FAILURE,
+    error: message,
+  };
+}
+
+function requestConfirmResetPassword() {
+  return {
+    type: types.REQUEST_CONFIRM_RESET_PASSWORD,
+  };
+}
+
+export function requestConfirmResetPasswordSuccess(data) {
+  return {
+    type: types.CONFIRM_RESET_PASSWORD_SUCCESS,
+    data,
+  };
+}
+
+function requestConfirmResetPasswordError(message) {
+  return {
+    type: types.CONFIRM_RESET_PASSWORD_FAILURE,
+    error: message,
+  };
+}
+
 export function loginWithEmail(email, password) {
   return (dispatch) => {
     dispatch(requestLogin());
@@ -125,6 +165,60 @@ export function signUpWithEmail(email, password) {
             break;
           case errorCode == 'auth/operation-not-allowed':
             alert('Your email was disabled.');
+            break;
+          default:
+            alert(errorMessage);
+        }
+        dispatch(requestLoginError(error.code));
+      });
+  };
+}
+
+export function sendPasswordResetEmail(email) {
+  const actionCodeSettings = {
+    url: `https://puconline-c176c.firebaseio.com?email=${email}`,
+    iOS: {
+      bundleId: 'com.puconline.app',
+    },
+    android: {
+      packageName: 'com.puconline.app',
+      installApp: true,
+      minimumVersion: '12',
+    },
+    handleCodeInApp: true,
+  };
+  return (dispatch) => {
+    dispatch(requestLogin());
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email, actionCodeSettings)
+      .then((response) => {
+        dispatch(requestLoginSuccess(response.user));
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        switch (errorCode) {
+          case errorCode == 'auth/invalid-email':
+            alert('Thrown if the email address is not valid..');
+            break;
+          case errorCode == 'auth/missing-android-pkg-name':
+            alert('An Android package name must be provided if the Android app is required to be installed.');
+            break;
+          case errorCode == 'auth/missing-continue-uri':
+            alert('A continue URL must be provided in the request.');
+            break;
+          case errorCode == 'auth/missing-ios-bundle-id':
+            alert('An iOS Bundle ID must be provided if an App Store ID is provided.');
+            break;
+          case errorCode == 'auth/invalid-continue-uri':
+            alert('The continue URL provided in the request is invalid.');
+            break;
+          case errorCode == 'auth/unauthorized-continue-uri':
+            alert('The domain of the continue URL is not whitelisted. Whitelist the domain in the Firebase console.');
+            break;
+          case errorCode == 'auth/user-not-found':
+            alert('Thrown if there is no user corresponding to the email address.');
             break;
           default:
             alert(errorMessage);

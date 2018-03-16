@@ -1,34 +1,29 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, Platform } from 'react-native';
 import Button from 'apsl-react-native-button';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import InputField from '../../components/InputField';
 import { validateEmail } from '../../utils/validation';
 import { COLORS, ICONS } from '../../modules';
 
-export class LoginComponent extends Component {
+class SignUpComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
     };
 
-    this._handleSignInWithEmail = this._handleSignInWithEmail.bind(this);
+    this._handleForgotPassword = this._handleForgotPassword.bind(this);
   }
 
-  _handleSignInWithEmail() {
-    const { email, password } = this.state;
+  _handleForgotPassword() {
+    const { email } = this.state;
 
-    if (email === '' || password === '') {
-      alert('Please enter a valid email address or password!');
-    } else if (!validateEmail(email)) {
-      alert('Please check your email');
-    } else if (validateEmail(email) && password !== '') {
-      this.props.actions.loginWithEmail(email, password);
-    } else {
-      alert('Please check your email and password!');
+    if (email === '' || !validateEmail(email)) {
+      alert('Please enter a valid email!');
+    } else if (validateEmail(email)) {
+      this.props.actions.sendPasswordResetEmail(email);
     }
   }
 
@@ -39,9 +34,9 @@ export class LoginComponent extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.close} onPress={() => this.props.navigation.goBack(null)}>
-            <EvilIcons name="close" size={28} color={COLORS.INPUT_TEXT} />
+            <SimpleLineIcons name="arrow-left" size={17} color={COLORS.INPUT_TEXT} />
           </TouchableOpacity>
-          <Text style={styles.title}>Sign in</Text>
+          <Text style={styles.title}>Forgot Your Password?</Text>
         </View>
         <View style={styles.body}>
           <View style={styles.bodyWrapper}>
@@ -53,61 +48,20 @@ export class LoginComponent extends Component {
               type="email-address"
               onChangeText={(text) => this.setState({ email: text })}
             />
-
-            <InputField
-              labelStyle={styles.labelStyle}
-              inputStyle={styles.inputStyle}
-              label="Password"
-              value={this.state.password}
-              secureTextEntry
-              onChangeText={(text) => this.setState({ password: text })}
-            />
           </View>
         </View>
         <View style={styles.footer}>
           <Button
             style={styles.loginButton}
-            onPress={this._handleSignInWithEmail}
+            onPress={this._handleForgotPassword}
             isLoading={isLoading}
             isDisabled={isLoading}
             activeOpacity={0.7}>
             <View>
-              <Text style={styles.loginButtonTitle}>SIGN IN</Text>
+              <Text style={styles.loginButtonTitle}>RESET YOUR PASSWORD</Text>
             </View>
           </Button>
         </View>
-        <TouchableOpacity
-          style={{ alignItems: 'center' }}
-          onPress={() => this.props.navigation.navigate('SignUpScreen')}>
-          <View
-            style={{
-              width: 100,
-              borderTopWidth: 1,
-              paddingTop: 10,
-              borderTopColor: COLORS.BORDER,
-            }}
-          />
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <Text style={{ color: COLORS.LIGHT_GREY, fontSize: 11 }}>Dont' have an account? </Text>
-            <Text style={{ color: COLORS.LIGHT_GREY, fontSize: 11 }}>Sign Up!</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('ForgotPasswordScreen')}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              paddingTop: 10,
-            }}>
-            <Text style={{ color: COLORS.LIGHT_GREY, fontSize: 11 }}>Forgot Your Password? </Text>
-          </View>
-        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -187,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginComponent;
+export default SignUpComponent;
