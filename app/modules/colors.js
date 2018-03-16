@@ -7,6 +7,7 @@ const colors = {
   LIGHT_GREY: '#333',
   LABEL: '#9AA3B7',
   INPUT_TEXT: '#484E5D',
+  BORDER: '#CDD7E0',
 };
 
 module.exports = colors;

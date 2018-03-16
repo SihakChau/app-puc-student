@@ -42,6 +42,26 @@ function requestLogoutError(message) {
   };
 }
 
+function requestSignUp() {
+  return {
+    type: types.REQUEST_SIGNUP,
+  };
+}
+
+export function requestSignUpSuccess(data) {
+  return {
+    type: types.SIGNUP_SUCCESS,
+    data,
+  };
+}
+
+function requestSignUpError(message) {
+  return {
+    type: types.SIGNUP_FAILURE,
+    error: message,
+  };
+}
+
 export function loginWithEmail(email, password) {
   return (dispatch) => {
     dispatch(requestLogin());
@@ -77,6 +97,39 @@ export function logout(navigation) {
       .catch((error) => {
         alert(JSON.stringify(error.code));
         dispatch(requestLogoutError(error.code));
+      });
+  };
+}
+
+export function signUpWithEmail(email, password) {
+  return (dispatch) => {
+    dispatch(requestLogin());
+    firebase
+      .auth()
+      .createUserAndRetrieveDataWithEmailAndPassword(email, password)
+      .then((response) => {
+        dispatch(requestLoginSuccess(response.user));
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        switch (errorCode) {
+          case errorCode == 'auth/weak-password':
+            alert('The password is too weak.');
+            break;
+          case errorCode == 'auth/email-already-in-use':
+            alert('Email Already used.');
+            break;
+          case errorCode == 'auth/invalid-email':
+            alert('Email is invalid.');
+            break;
+          case errorCode == 'auth/operation-not-allowed':
+            alert('Your email was disabled.');
+            break;
+          default:
+            alert(errorMessage);
+        }
+        dispatch(requestLoginError(error.code));
       });
   };
 }

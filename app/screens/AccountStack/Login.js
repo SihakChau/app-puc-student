@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, Platform } from 'react-native';
 import Button from 'apsl-react-native-button';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import InputField from '../../components/InputField';
 import { validateEmail } from '../../utils/validation';
@@ -37,6 +38,9 @@ export class LoginComponent extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
+          <TouchableOpacity style={styles.close} onPress={() => this.props.navigation.goBack(null)}>
+            <EvilIcons name="close" size={28} color={COLORS.INPUT_TEXT} />
+          </TouchableOpacity>
           <Text style={styles.title}>Sign in</Text>
         </View>
         <View style={styles.body}>
@@ -44,7 +48,7 @@ export class LoginComponent extends Component {
             <InputField
               labelStyle={styles.labelStyle}
               inputStyle={[styles.inputStyle, { marginBottom: 20 }]}
-              label="Mail"
+              label="Email"
               value={this.state.email}
               type="email-address"
               onChangeText={(text) => this.setState({ email: text })}
@@ -71,10 +75,28 @@ export class LoginComponent extends Component {
               <Text style={styles.loginButtonTitle}>SIGN IN</Text>
             </View>
           </Button>
-          <TouchableOpacity style={styles.link} onPress={() => this.props.navigation.goBack(null)}>
-            <Text style={styles.textLink}>Cancel</Text>
-          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={{ paddingVertical: 20, paddingHorizontal: 40, alignItems: 'center' }}
+          onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+          <View
+            style={{
+              width: 100,
+              borderTopWidth: 1,
+              borderTopColor: COLORS.BORDER,
+            }}
+          />
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 25,
+              flexDirection: 'row',
+            }}>
+            <Text style={{ color: COLORS.LIGHT_GREY, fontSize: 11 }}>Dont' have an account? </Text>
+            <Text style={{ color: COLORS.LIGHT_GREY, fontSize: 11 }}>Sign Up!</Text>
+          </View>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }

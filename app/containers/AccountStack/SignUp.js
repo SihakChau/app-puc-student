@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { signUpWithEmail } from '../../actions/authAction';
 import SignUpComponent from '../../screens/AccountStack/SignUp';
 
 class SignUpContainer extends Component {
@@ -11,11 +12,20 @@ class SignUpContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    loading: state.authReducer.get('loading'),
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    actions: bindActionCreators(
+      {
+        signUpWithEmail,
+      },
+      dispatch
+    ),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);

@@ -1,28 +1,57 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, Platform } from 'react-native';
 import Button from 'apsl-react-native-button';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import InputField from '../../components/InputField';
+import { validateEmail } from '../../utils/validation';
+import { COLORS, ICONS } from '../../modules';
 
-export class SignUpComponent extends Component {
+class SignUpComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      confirmPWD: '',
     };
+
+    this._handleSignUpWithEmail = this._handleSignUpWithEmail.bind(this);
+  }
+
+  _handleSignUpWithEmail() {
+    const { email, password, confirmPWD } = this.state;
+
+    if (email === '' || !validateEmail(email)) {
+      alert('Please enter a valid email!');
+    } else if (confirmPWD !== password) {
+      alert('Please check your password again!');
+    } else if (email === '' && password === '') {
+      alert('Please enter a valid email or password!');
+    } else if (validateEmail(email) && password !== '') {
+      this.props.actions.signUpWithEmail(email, password);
+    } else {
+      alert('Please check your email and password!');
+    }
   }
 
   render() {
+    const isLoading = this.props.loading;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.header} />
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.close} onPress={() => this.props.navigation.goBack(null)}>
+            <SimpleLineIcons name="arrow-left" size={17} color={COLORS.INPUT_TEXT} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Sign Up</Text>
+        </View>
         <View style={styles.body}>
           <View style={styles.bodyWrapper}>
             <InputField
               labelStyle={styles.labelStyle}
-              inputStyle={[styles.inputStyle, { marginBottom: 40 }]}
-              label="Enter Your Email: "
+              inputStyle={[styles.inputStyle, { marginBottom: 20 }]}
+              label="Email"
               value={this.state.email}
               type="email-address"
               onChangeText={(text) => this.setState({ email: text })}
@@ -30,39 +59,36 @@ export class SignUpComponent extends Component {
 
             <InputField
               labelStyle={styles.labelStyle}
-              inputStyle={[styles.inputStyle, { marginBottom: 40 }]}
-              label="Enter Your Password: "
+              inputStyle={[styles.inputStyle, { marginBottom: 20 }]}
+              label="Password"
               value={this.state.password}
               secureTextEntry
-              onChangeText={(text) => this.setState({ password: text })}
+              onChangeText={(pwd) => this.setState({ password: pwd })}
             />
 
             <InputField
               labelStyle={styles.labelStyle}
               inputStyle={styles.inputStyle}
-              label="Confirm Your Password: "
-              value={this.state.password}
+              label="Confirmation Password"
+              value={this.state.confirmPWD}
               secureTextEntry
-              onChangeText={(text) => this.setState({ password: text })}
+              onChangeText={(pwd) => this.setState({ confirmPWD: pwd })}
             />
-
-            <View style={styles.buttonWrapper}>
-              <View style={styles.loginButtonWrapper}>
-                <Button style={styles.loginButton} activeOpacity={0.7}>
-                  <View>
-                    <Text style={styles.loginButtonTitle}>Begin!</Text>
-                  </View>
-                </Button>
-              </View>
-            </View>
           </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.signInLink}>Already have an account? SIGN IN</Text>
-          </TouchableOpacity>
+          <Button
+            style={styles.loginButton}
+            onPress={this._handleSignUpWithEmail}
+            isLoading={isLoading}
+            isDisabled={isLoading}
+            activeOpacity={0.7}>
+            <View>
+              <Text style={styles.loginButtonTitle}>SIGN UP</Text>
+            </View>
+          </Button>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -70,25 +96,33 @@ export class SignUpComponent extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.BG,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: '800',
+    paddingHorizontal: 10,
+    marginTop: 20,
   },
   header: {
-    height: 170,
-    backgroundColor: '#7000E3',
+    backgroundColor: COLORS.BLANK,
+    paddingHorizontal: 10,
   },
   body: {
     flex: 1,
-    padding: 40,
+    padding: 20,
   },
   bodyWrapper: {
-    flex: 1,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: COLORS.WHITE,
   },
   inputStyle: {
-    color: '#484E5D',
+    color: COLORS.INPUT_TEXT,
     borderBottomWidth: 1,
     borderBottomColor: '#CDD7E0',
     borderRadius: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: COLORS.BLANK,
     ...Platform.select({
       ios: {
         shadowOpacity: 0,
@@ -98,34 +132,38 @@ const styles = StyleSheet.create({
       },
     }),
   },
+
   labelStyle: {
-    color: '#9AA3B7',
-  },
-  buttonWrapper: {
-    flexDirection: 'row',
-    marginTop: 30,
-  },
-  loginButtonWrapper: {
-    flex: 1,
+    color: COLORS.LABEL,
   },
   loginButton: {
-    backgroundColor: '#7000E3',
+    backgroundColor: COLORS.BLUE,
     borderRadius: 50,
     borderWidth: 0,
     marginBottom: 0,
     height: 45,
   },
   loginButtonTitle: {
-    color: '#FFF',
-    fontWeight: 'bold',
+    color: COLORS.WHITE,
+    fontWeight: '700',
+    fontSize: 16,
   },
 
   footer: {
-    padding: 40,
+    paddingHorizontal: 40,
+    paddingBottom: 15,
     alignItems: 'center',
   },
-  signInLink: {
-    color: '#9AA3B7',
+  link: {
+    paddingVertical: 5,
+  },
+  textLink: {
+    backgroundColor: COLORS.BLANK,
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '700',
+    color: COLORS.BLUE,
+    marginTop: 10,
   },
 });
 
