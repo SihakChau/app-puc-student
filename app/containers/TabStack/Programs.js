@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { fetchTest } from '../../actions/testRegistrationAction';
 import ProgramsComponent from '../../screens/TabStack/Programs';
 
 class ProgramsContainer extends Component {
@@ -19,11 +20,16 @@ ProgramsContainer.navigationOptions = ({ navigation }) => ({
 });
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    testing_data: state.testRegistrationReducer.get('data'),
+    current_user: state.authReducer.get('data'),
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    actions: bindActionCreators({ fetchTest }, dispatch),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProgramsContainer);

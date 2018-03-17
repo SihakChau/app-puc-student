@@ -20,7 +20,21 @@ const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window'
 class ProgramsComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { viewRef: null };
+    this.state = {
+      testing_data: [],
+      viewRef: null,
+    };
+  }
+
+  componentWillMount() {
+    this.props.actions.fetchTest();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { testing_data } = nextProps;
+    this.setState({
+      testing_data,
+    });
   }
 
   imageLoaded() {
@@ -28,6 +42,8 @@ class ProgramsComponent extends Component {
   }
 
   render() {
+    const { testing_data } = this.state;
+    const { current_user } = this.props;
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>

@@ -46,35 +46,29 @@ function requestTestRegistrationError(message) {
   };
 }
 
-export function fetchTest(user) {
-  return (dispatch) => {
+export function fetchTest() {
+  const fetchTestData = [];
+  return (dispatch, getState) => {
+    const current_user = getState().authReducer.get('data');
     dispatch(startFetchTest());
-    const bookingRef = firebase
+    firebase
       .firestore()
       .collection('testing')
-      .where('uid', '==', user.uid)
+      .where('uid', '==', current_user.uid)
       .orderBy('admissiondate', 'desc')
       .limit(1)
       .onSnapshot((snapshots) => {
-        setTimeout(() => {
-          dispatch(pushTestData(snapshots));
-        }, 0);
+        snapshots.forEach((doc) => {
+          fetchTestData.push({
+            key: doc.id,
+            doc,
+            ...doc.data(),
+          });
+        });
+        dispatch(fetchTestSuccess(fetchTestData));
       });
   };
 }
-export const pushTestData = (data) => {
-  return function(dispatch) {
-    const tests = [];
-    data.forEach((doc) => {
-      tests.push({
-        key: doc.id,
-        doc,
-        ...doc.data(),
-      });
-    });
-    dispatch(fetchTestSuccess(tests));
-  };
-};
 
 export function completedForm(params, navigation) {
   return (dispatch) => {
