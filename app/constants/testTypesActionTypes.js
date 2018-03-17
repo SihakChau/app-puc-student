@@ -1,0 +1,7 @@
+const testTypesActionTypes = {
+  REQUEST_TEST_TYPES: 'REQUEST_TEST_TYPES',
+  TEST_TYPES_SUCCESS: 'TEST_TYPES_SUCCESS',
+  TEST_TYPES_FAILURE: 'TEST_REGISTRATION_FAILURE',
+};
+
+export default testTypesActionTypes;

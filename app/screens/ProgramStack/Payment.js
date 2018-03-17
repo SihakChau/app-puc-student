@@ -46,7 +46,7 @@ class PaymentComponent extends Component {
           <View style={styles.companyInfo}>
             <Text style={styles.h4}>{form.latinname}</Text>
             <View style={styles.departure}>
-              <Text style={styles.departText}>{form.testtype}</Text>
+              <Text style={styles.departText}>{form.testtype[0].name}</Text>
             </View>
             <Text style={styles.memo}>{admissiondate.calendar()}</Text>
           </View>

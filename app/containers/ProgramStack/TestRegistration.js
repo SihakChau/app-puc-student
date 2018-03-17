@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { completedForm } from '../../actions/testRegistrationAction';
+import { fetchTestTypes } from '../../actions/testTypeAction';
 import TestingComponent from '../../screens/ProgramStack/TestRegistration';
 
 class TestRegistrationContainer extends Component {
@@ -25,12 +26,13 @@ function mapStateToProps(state) {
     data: state.testRegistrationReducer.get('data'),
     form: state.testRegistrationReducer.get('form'),
     user: state.authReducer.get('data'),
+    testTypesData: state.testTypesReducer.get('data'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ completedForm }, dispatch),
+    actions: bindActionCreators({ completedForm, fetchTestTypes }, dispatch),
   };
 }
 

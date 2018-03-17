@@ -105,7 +105,7 @@ export function testRegistration(params, navigation, user) {
         mobilephone: params.mobilephone,
         serialid: params.serialid,
         testresult: params.testresult,
-        testtype: params.testtype,
+        test_type: params.testtype[0],
         uid: user.uid,
         username: params.username,
       })

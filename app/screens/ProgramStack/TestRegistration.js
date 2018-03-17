@@ -9,8 +9,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Modal from 'react-native-modal';
 
 import InputField from '../../components/InputField';
-import { TestTypesData } from '../../dummy';
 import { COLORS, ICONS } from '../../modules';
+import _ from 'lodash';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
@@ -51,8 +51,12 @@ class TestRegistration extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.actions.fetchTestTypes();
+  }
+
   _handleTestingSubmit() {
-    const {
+    let {
       admissiondate,
       datecreate,
       datemodified,
@@ -71,6 +75,10 @@ class TestRegistration extends Component {
       uid,
       username,
     } = this.state;
+
+    testtype = _.filter(this.props.testTypesData, (item) => {
+      return item.name === testtype;
+    });
 
     const params = {
       admissiondate,
@@ -95,8 +103,10 @@ class TestRegistration extends Component {
   }
 
   _renderTestTypes() {
-    if (TestTypesData !== undefined && TestTypesData.length > 0) {
-      return TestTypesData.map((item, index) => <Picker.Item key={index} label={item.title} value={item.title} />);
+    const { testTypesData } = this.props;
+
+    if (testTypesData !== undefined && testTypesData.length > 0) {
+      return testTypesData.map((item, index) => <Picker.Item key={index} label={item.name} value={item.name} />);
     }
     return <Picker.Item label="No Data" value="default" />;
   }
