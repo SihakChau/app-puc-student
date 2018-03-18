@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import {
-  Dimensions,
-  Image,
-  PixelRatio,
-  StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
-  Alert,
+  Text,
   FlatList,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+  SafeAreaView,
+  Image,
+  Dimensions,
   findNodeHandle,
+  StyleSheet,
   Platform,
 } from 'react-native';
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { BlurView } from 'react-native-blur';
+import moment from 'moment';
 
-import { COLORS, ICONS } from '../../modules';
+import { COLORS, ICONS } from '../../../modules';
 
-class ProfileComponent extends Component {
+class TestItem extends Component {
   constructor(props) {
     super(props);
     this.state = { viewRef: null };
@@ -27,98 +28,30 @@ class ProfileComponent extends Component {
     this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
   }
 
-  _flatHeader = () => {
-    return <View style={{ height: 20, width: '100%' }} />;
-  };
-  _flatSeparator = () => {
-    return <View style={{ height: 8, width: '100%', backgroundColor: colors.backgroundPrimary }} />;
-  };
-  _flatFooter = () => {
-    return (
-      <View
-        style={{
-          height: 50,
-        }}
-      />
-    );
-  };
-
   render() {
-    const { current_user } = this.props;
+    const { latinname, testtype, admissiondate, mobilephone, serialid } = this.props;
     return (
-      <ParallaxScrollView
-        headerBackgroundColor="#DEE4F0"
-        contentBackgroundColor={colors.backgroundPrimary}
-        backgroundColor={colors.backgroundPrimary}
-        stickyHeaderHeight={STICKY_HEADER_HEIGHT}
-        parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
-        backgroundSpeed={10}
-        renderBackground={() => (
-          <View key="background">
-            <Image
-              ref={(img) => {
-                this.backgroundImage = img;
-              }}
-              onLoadEnd={this.imageLoaded.bind(this)}
-              source={ICONS.JOIN_US_BG}
-              style={{ width: window.width, height: PARALLAX_HEADER_HEIGHT }}
-            />
-            <View
-              style={{
-                position: 'absolute',
-                top: 0,
-                width: window.width,
-                backgroundColor: 'rgba(0,0,0,.4)',
-                height: PARALLAX_HEADER_HEIGHT,
-              }}
-            />
-          </View>
-        )}
-        renderForeground={() => (
-          <View key="parallax-header" style={styles.parallaxHeader}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{current_user.displayName}</Text>
-            </View>
-            <Text style={styles.sectionSpeakerText}>{current_user.email}</Text>
-            <Text style={styles.sectionTitleText}>{current_user.phoneNumber}</Text>
-          </View>
-        )}
-        renderStickyHeader={() => (
-          <View key="sticky-header" style={styles.stickySection}>
-            <Text style={styles.stickySectionText}>My Account</Text>
-          </View>
-        )}>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Account</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Language</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>About</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Policies</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Contact Us</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} activeOpacity={1}>
-          <Text style={styles.itemText}>Developer</Text>
-          <View style={styles.fbox} />
-          <Icon name="ios-arrow-forward-outline" style={styles.itemIcon} />
-        </TouchableOpacity>
-      </ParallaxScrollView>
+      <TouchableOpacity style={styles.card} activeOpacity={1}>
+        <Image
+          style={styles.bgImage}
+          ref={(img) => {
+            this.backgroundImage = img;
+          }}
+          onLoadEnd={this.imageLoaded.bind(this)}
+          source={ICONS.SHOT}
+        />
+        <Text style={[styles.h4]}>Serial: {serialid}</Text>
+        <Text style={[styles.h4, styles.pt0]}>{testtype}</Text>
+        <View style={styles.f1} />
+        <View style={styles.footer}>
+          <BlurView style={styles.absolute} viewRef={this.state.viewRef} blurType="light" blurAmount={30} />
+          <Text style={styles.h6}>{latinname}</Text>
+          <Text style={styles.subtitle}>
+            Admission date {moment(admissiondate).format('MMMM, DD, YYYY')}, Payment 10,000 Riel. Your contact number{' '}
+            {mobilephone}
+          </Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -157,36 +90,6 @@ const PARALLAX_HEADER_HEIGHT = 350;
 const STICKY_HEADER_HEIGHT = 70;
 
 const styles = StyleSheet.create({
-  signout: {
-    marginTop: 20,
-    borderTopColor: colors.borderColor,
-    borderTopWidth: 1,
-  },
-  item: {
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-    backgroundColor: colors.white,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderColor,
-    alignItems: 'center',
-  },
-  itemText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.apple,
-  },
-  itemIcon: {
-    fontSize: 24,
-    color: colors.icon,
-  },
-  containt: {
-    flex: 1,
-    backgroundColor: colors.backgroundPrimary,
-  },
-  fbox: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     backgroundColor: colors.backgroundPrimary,
@@ -341,6 +244,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 0,
     borderRadius: 10,
+    paddingHorizontal: 20,
     backgroundColor: colors.white,
     shadowColor: '#CFCCDC',
     shadowOffset: {
@@ -353,7 +257,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginBottom: 20,
     height: 350,
-    marginHorizontal: 20,
     flexDirection: 'column',
   },
   bgImage: {
@@ -392,4 +295,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileComponent;
+export default TestItem;

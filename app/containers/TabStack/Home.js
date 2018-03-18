@@ -19,7 +19,9 @@ HomeContainer.navigationOptions = ({ navigation }) => ({
 });
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    current_user: state.authReducer.get('data'),
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -10,6 +10,7 @@ import SignUpScreen from '../containers/AccountStack/SignUp';
 import ForgotPasswordScreen from '../containers/AccountStack/ForgotPassword';
 
 import TestRegistrationScreen from '../containers/ProgramStack/TestRegistration';
+import ListAllTestingScreen from '../containers/ProgramStack/ListAllTestingScreen';
 import PaymentScreen from '../containers/ProgramStack/Payment';
 
 import HomeScreen from '../containers/TabStack/Home';
@@ -29,6 +30,7 @@ const ProgramStack = StackNavigator({
   ProgramsScreen: { screen: ProgramsScreen, navigationOptions: { header: null } },
   PaymentScreen: { screen: PaymentScreen, navigationOptions: { header: null } },
   TestRegistrationScreen: { screen: TestRegistrationScreen, navigationOptions: { header: null } },
+  ListAllTestingScreen: { screen: ListAllTestingScreen, navigationOptions: { header: null } },
 });
 
 const HomeStack = StackNavigator({

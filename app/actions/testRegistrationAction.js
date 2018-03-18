@@ -56,7 +56,6 @@ export function fetchTest() {
       .collection('testing')
       .where('uid', '==', current_user.uid)
       .orderBy('admissiondate', 'desc')
-      .limit(1)
       .onSnapshot((snapshots) => {
         snapshots.forEach((doc) => {
           fetchTestData.push({

@@ -14,6 +14,7 @@ import {
 import { BlurView } from 'react-native-blur';
 
 import { COLORS, ICONS } from '../../modules';
+import LoadingComponent from '../../components/Loading';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
@@ -21,7 +22,8 @@ class ProgramsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      testing_data: [],
+      loading: true,
+      testing_data: this.props,
       viewRef: null,
     };
   }
@@ -37,46 +39,78 @@ class ProgramsComponent extends Component {
     });
   }
 
+  componentDidMount() {
+    const self = this;
+    setTimeout(function() {
+      self.setState({
+        loading: !self.state.loading,
+      });
+    }, 1000);
+  }
+
   imageLoaded() {
     this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
   }
 
   render() {
-    const { testing_data } = this.state;
-    const { current_user } = this.props;
+    const { loading, testing_data } = this.state;
+    const totalTesting = testing_data.length;
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
           <Text style={styles.title}>Programs</Text>
         </View>
-        <ScrollView style={styles.container}>
-          <View style={styles.groupHeader}>
-            <Text style={styles.h5}>GET START</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.card}
-            activeOpacity={1}
-            onPress={() => this.props.navigation.navigate('TestRegistrationScreen')}>
-            <Image
-              style={styles.bgImage}
-              ref={(img) => {
-                this.backgroundImage = img;
-              }}
-              onLoadEnd={this.imageLoaded.bind(this)}
-              source={ICONS.EDUCATION}
-            />
-
-            <Text style={styles.h4}>Commitment to Excellence</Text>
-            <View style={styles.f1} />
-            <View style={styles.footer}>
-              <BlurView style={styles.absolute} viewRef={this.state.viewRef} blurType="light" blurAmount={30} />
-              <Text style={styles.h6}>Register Test</Text>
-              <Text style={styles.subtitle}>
-                Improving your quality of life and building the capacity with us. Join with our university here!
-              </Text>
+        {loading ? (
+          <LoadingComponent />
+        ) : (
+          <ScrollView style={styles.container}>
+            <View style={styles.groupHeader}>
+              <Text style={styles.h5}>GET START</Text>
             </View>
-          </TouchableOpacity>
-        </ScrollView>
+
+            {totalTesting >= 1 ? (
+              <TouchableOpacity
+                style={[styles.card, { height: undefined }]}
+                activeOpacity={1}
+                onPress={() =>
+                  this.props.navigation.navigate('ListAllTestingScreen', {
+                    testing_data: testing_data,
+                    title: 'All Testings',
+                  })
+                }>
+                <View style={styles.footer}>
+                  <BlurView style={styles.absolute} viewRef={this.state.viewRef} blurType="light" blurAmount={30} />
+                  <Text style={styles.h6}>Testing</Text>
+                  <Text style={styles.subtitle}>View all your testing that have been created here!</Text>
+                </View>
+              </TouchableOpacity>
+            ) : totalTesting === 0 ? (
+              <TouchableOpacity
+                style={styles.card}
+                activeOpacity={1}
+                onPress={() => this.props.navigation.navigate('TestRegistrationScreen')}>
+                <Image
+                  style={styles.bgImage}
+                  ref={(img) => {
+                    this.backgroundImage = img;
+                  }}
+                  onLoadEnd={this.imageLoaded.bind(this)}
+                  source={ICONS.EDUCATION}
+                />
+
+                <Text style={styles.h4}>Commitment to Excellence</Text>
+                <View style={styles.f1} />
+                <View style={styles.footer}>
+                  <BlurView style={styles.absolute} viewRef={this.state.viewRef} blurType="light" blurAmount={30} />
+                  <Text style={styles.h6}>Register Test</Text>
+                  <Text style={styles.subtitle}>
+                    Improving your quality of life and building the capacity with us. Join with our university here!
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ) : null}
+          </ScrollView>
+        )}
       </SafeAreaView>
     );
   }

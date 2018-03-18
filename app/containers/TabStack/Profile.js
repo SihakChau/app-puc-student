@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { fetchTest } from '../../actions/testRegistrationAction';
 import ProfileComponent from '../../screens/TabStack/Profile';
 
 class ProfileContainer extends Component {
@@ -21,16 +20,12 @@ ProfileContainer.navigationOptions = ({ navigation }) => ({
 
 function mapStateToProps(state) {
   return {
-    isLoading: state.testRegistrationReducer.get('loading'),
-    data: state.testRegistrationReducer.get('data'),
-    user: state.authReducer.get('data'),
+    current_user: state.authReducer.get('data'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({ fetchTest }, dispatch),
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
