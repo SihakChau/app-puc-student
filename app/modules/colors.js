@@ -8,6 +8,9 @@ const colors = {
   LABEL: '#9AA3B7',
   INPUT_TEXT: '#484E5D',
   BORDER: '#CDD7E0',
+  HCOLOR: '#2E3B53',
+  BACKGROUND : '#F4F6FB',
+  DARK: '#333'
 };
 
 module.exports = colors;
