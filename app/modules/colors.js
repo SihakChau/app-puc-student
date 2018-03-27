@@ -10,7 +10,8 @@ const colors = {
   BORDER: '#CDD7E0',
   HCOLOR: '#2E3B53',
   BACKGROUND : '#F4F6FB',
-  DARK: '#333'
+  DARK: '#333',
+  PLACEHOLDER : '#B8B7B7',
 };
 
 module.exports = colors;
