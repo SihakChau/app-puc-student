@@ -13,8 +13,8 @@ class GridMenu extends Component {
         const styles = StyleSheet.create({
             gridView: {
                 marginHorizontal: this.props.gridMarginHorizontal,
-               marginTop: 5,
-               marginBottom: 10, 
+                marginTop: 5,
+                marginBottom: 10, 
                 borderWidth: 0.1,
                 borderColor: COLORS.BORDER,
                 borderRadius: 8,
@@ -88,19 +88,19 @@ class GridMenu extends Component {
                     onPress = {() => this.props.onBTN1('1')}
                      style={styles.gridViewItem}>
                         <MaterialIcons style={styles.gridIcon} name= {this.props.BTN1} />
-                        <Text style={styles.gridText}>Testing Center</Text>
+                        <Text style={styles.gridText}>{this.props.Label1}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     onPress = {() => this.props.onBTN2('2')}
                     style={styles.gridViewItem}>
                         <Ionicons style={styles.gridIcon}  name= {this.props.BTN2} />
-                        <Text style={styles.gridText}>English Program</Text>
+                        <Text style={styles.gridText}>{this.props.Label2}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                     onPress = {() => this.props.onBTN3('3')}
                      style={styles.gridViewItem}>
                         <Ionicons style={styles.gridIcon}  name= {this.props.BTN3} />
-                        <Text style={styles.gridText}>Academic Program </Text>
+                        <Text style={styles.gridText}>{this.props.Label3}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -109,19 +109,19 @@ class GridMenu extends Component {
                     onPress = {() => this.props.onBTN4('4')}
                     style={styles.gridViewItem}>
                         <Ionicons style={styles.gridIcon} name= {this.props.BTN4} />
-                        <Text style={styles.gridText}>Institutes & Centers</Text>
+                        <Text style={styles.gridText}>{this.props.Label4}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     onPress = {() => this.props.onBTN5('5')}
                     style={styles.gridViewItem}>
                         <Ionicons style={styles.gridIcon}  name= {this.props.BTN5} />
-                        <Text style={styles.gridText}> Short Course </Text>
+                        <Text style={styles.gridText}>{this.props.Label5}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                     onPress = {() => this.props.onBTN6('6')}
                      style={styles.gridViewItem}>
                         <Ionicons style={styles.gridIcon}  name= {this.props.BTN6} />
-                        <Text style={styles.gridText}> Event </Text>
+                        <Text style={styles.gridText}>{this.props.Label6}</Text>
                     </TouchableOpacity>
                 </View>
 

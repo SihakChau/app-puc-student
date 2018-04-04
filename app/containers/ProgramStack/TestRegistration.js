@@ -14,7 +14,7 @@ class TestRegistrationContainer extends Component {
 }
 
 TestRegistrationContainer.navigationOptions = ({ navigation }) => ({
-  tabBarLabel: 'Programs',
+  tabBarLabel: 'Enrollment',
   tabBarIcon: ({ focused, tintColor }) => (
     <Icon name={focused ? 'ios-ribbon' : 'ios-ribbon-outline'} size={32} color={tintColor} />
   ),

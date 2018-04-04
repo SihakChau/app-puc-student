@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text,StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation';
@@ -34,7 +34,12 @@ class PucMobile extends Component {
   }
 
   render() {
-    return <View style={{ flex: 1 }}>{this.state.initialComponent}</View>;
+    return(
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content"/>
+        {this.state.initialComponent}
+      </View>
+    ) 
   }
 }
 

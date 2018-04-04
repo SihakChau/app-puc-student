@@ -12,6 +12,7 @@ export default class PucMobile extends Component {
   render() {
     return (
       <Provider store={store}>
+      
         <App />
       </Provider>
     );

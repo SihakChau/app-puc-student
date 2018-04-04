@@ -13,7 +13,7 @@ class ProgramsContainer extends Component {
 }
 
 ProgramsContainer.navigationOptions = ({ navigation }) => ({
-  tabBarLabel: 'Programs',
+  tabBarLabel: 'Registration',
   tabBarIcon: ({ focused, tintColor }) => (
     <Icon name={focused ? 'ios-ribbon' : 'ios-ribbon-outline'} size={32} color={tintColor} />
   ),
