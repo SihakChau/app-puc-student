@@ -19,6 +19,8 @@ import ProfileScreen from '../containers/TabStack/Profile';
 import NotificationsScreen from '../containers/TabStack/Notifications';
 import SettingsScreen from '../containers/TabStack/Settings';
 
+import TranscriptScreen from '../screens/TabStack/ProgramsComponent/transcript';
+
 const AccountStack = StackNavigator({
   JoinUsScreen: { screen: JoinUsScreen, navigationOptions: { header: null } },
   LoginScreen: { screen: LoginScreen, navigationOptions: { header: null } },
@@ -31,6 +33,7 @@ const ProgramStack = StackNavigator({
   PaymentScreen: { screen: PaymentScreen, navigationOptions: { header: null } },
   TestRegistrationScreen: { screen: TestRegistrationScreen, navigationOptions: { header: null } },
   ListAllTestingScreen: { screen: ListAllTestingScreen, navigationOptions: { header: null } },
+  TranscriptScreen : { screen : TranscriptScreen, navigationOptions: { header: null }  }
 });
 
 const HomeStack = StackNavigator({
@@ -65,7 +68,7 @@ const TabStack = TabNavigator(
     tabBarOptions: {
       showLabel: true,
       showIcon: true,
-      activeTintColor: '#228AE6',
+      activeTintColor: '#3080e8',
       inactiveTintColor: '#b6b6b6',
       style: {
         elevation: 0,

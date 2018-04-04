@@ -1,6 +1,6 @@
 const colors = {
   BLANK: 'transparent',
-  BLUE: '#228AE6',
+  BLUE: '#3080e8',
   WHITE: '#fff',
   BG: '#F4F6FB',
   DARK_GREY: '#0f0f0f',

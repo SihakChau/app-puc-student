@@ -130,7 +130,9 @@ class ProgramsComponent extends Component {
               <TouchableOpacity style={styles.IconContainer}>
                 <Ionicons name='ios-search' style={styles.HBtnIcon} />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.IconContainer}>
+              <TouchableOpacity
+              onPress = {() => this.props.navigation.navigate('TranscriptScreen')}
+               style={styles.IconContainer}>
                 <Ionicons name='md-list-box' style={styles.HBtnIcon} />
               </TouchableOpacity>
             </View>
@@ -150,13 +152,19 @@ class ProgramsComponent extends Component {
             gridMarginHorizontal={15}
             iconSize={48}
             fontSize={11}
-
+            Label1 = {'Testing Center'}
             BTN1={'playlist-add-check'}
             BTN2={'md-medal'}
+            Label2 = {'English Program'}            
             BTN3={'md-school'}
+            Label3 = {'Academic Program'}            
             BTN4={'md-stats'}
+            Label4 = {'Institutes & Centers'}            
             BTN5={'logo-buffer'}
+            Label5 = {'Short Course'}                        
             BTN6={'md-bulb'}
+            Label6 = {'Event'}                        
+            
 
             onBTN1={() => console.log('1')}
             onBTN2={() => console.log('2')}
