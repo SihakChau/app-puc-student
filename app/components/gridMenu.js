@@ -13,8 +13,6 @@ class GridMenu extends Component {
         const styles = StyleSheet.create({
             gridView: {
                 marginHorizontal: this.props.gridMarginHorizontal,
-                marginTop: 5,
-                marginBottom: 10, 
                 borderWidth: 0.1,
                 borderColor: COLORS.BORDER,
                 borderRadius: 8,
@@ -27,6 +25,7 @@ class GridMenu extends Component {
                 shadowRadius: 15,
                 shadowOpacity: 1,
                 elevation: 15,
+                
             },
         
             gridViewItemContainer: {

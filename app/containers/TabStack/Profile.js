@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { fetchProfile } from '../../actions/myAccountAction'
 import ProfileComponent from '../../screens/TabStack/Profile';
 
 class ProfileContainer extends Component {
@@ -21,11 +21,16 @@ ProfileContainer.navigationOptions = ({ navigation }) => ({
 function mapStateToProps(state) {
   return {
     current_user: state.authReducer.get('data'),
+    profile: state.myAccountReducer.get('data'),
+    loading: state.myAccountReducer.get('loading'),
+    error: state.myAccountReducer.get('error')
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    actions: bindActionCreators({ fetchProfile }, dispatch),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

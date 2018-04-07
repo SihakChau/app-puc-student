@@ -54,8 +54,8 @@ const SettingsStack = StackNavigator({
 
 const TabStack = TabNavigator(
   {
-    HomeTab: { screen: ProgramStack },
-    // ProgramTab: { screen: ProgramStack },
+    HomeTab: { screen: HomeStack },
+    ProgramTab: { screen: ProgramStack },
     ProfileTab: { screen: ProfileStack },
     NotificationsTab: { screen: NotificationsStack },
     SettingsTab: { screen: SettingsStack },

@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
 
   safeArea: {
-    paddingTop: 20,
+    paddingTop: 40,
     flex: 1,
     backgroundColor: COLORS.BLUE,
   },
